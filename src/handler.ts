@@ -8,6 +8,10 @@ const phoneNumberUtilInstance = PhoneNumberUtil.getInstance();
 const phoneNumberHandler: Handler = {
     GetPhoneNumber: {
         START() {
+            if (this.$components.GetPhoneNumber.data.phoneNumber) {
+                return sendComponentResponse(this, 'SUCCESSFUL');
+            }
+
             this.$session.$data.COMPONENT_GetPhoneNumber = {
                 failCount: 0,
                 phoneNumber: ''
@@ -47,11 +51,9 @@ const phoneNumberHandler: Handler = {
     
             const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
     
-            const data = {
-                phoneNumber: formattedPhoneNumber
-            };
+            this.$components.GetPhoneNumber.data.phoneNumber = formattedPhoneNumber;
     
-            return sendComponentResponse(this, 'SUCCESSFUL', data);
+            return sendComponentResponse(this, 'SUCCESSFUL');
         },
     
         NoIntent() {
@@ -147,11 +149,9 @@ const phoneNumberHandler: Handler = {
     
                     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
     
-                    const data = {
-                        phoneNumber: formattedPhoneNumber
-                    };
+                    this.$components.GetPhoneNumber.data.phoneNumber = formattedPhoneNumber;
             
-                    return sendComponentResponse(this, 'SUCCESSFUL', data);
+                    return sendComponentResponse(this, 'SUCCESSFUL');
                 }
             },
         
@@ -172,8 +172,7 @@ const phoneNumberHandler: Handler = {
             },
         
             ON_ERROR() {
-                const error = this.$handleRequest!.error;
-                return sendComponentResponse(this, 'ERROR', undefined, error);
+                return sendComponentResponse(this, 'ERROR');
             },
         
             Unhandled() {
@@ -212,15 +211,15 @@ function formatPhoneNumber(phoneNumber: PhoneNumber) {
     return phoneNumberE164;
 }
 
-function sendComponentResponse(jovo: Jovo, status: 'SUCCESSFUL' | 'ERROR' | 'REJECTED', data?: object, error?: Error): Promise<void> {
+function sendComponentResponse(jovo: Jovo, status: 'SUCCESSFUL' | 'ERROR' | 'REJECTED'): Promise<void> {
     const response: ComponentResponse = {
         status
     };
 
-    if (data) {
-        response.data = data;
-    } else if (error) {
-        response.error = error;
+    if (status === 'SUCCESSFUL') {
+        response.data = jovo.$components.GetPhoneNumber.data;
+    } else if (status === 'ERROR') {
+        response.error = jovo.$handleRequest!.error;
     }
 
     return jovo.sendComponentResponse(response);
