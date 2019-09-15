@@ -109,6 +109,7 @@ const phoneNumberHandler: Handler = {
             },
     
             YesIntent() {
+                this.$session.$data.COMPONENT_GetPhoneNumber.phoneNumberSequenceCount += 1;
                 const phoneNumberSequenceCount = this.$session.$data.COMPONENT_GetPhoneNumber.phoneNumberSequenceCount;
                 let sequence = this.$session.$data.COMPONENT_GetPhoneNumber.sequence;
     
@@ -118,11 +119,15 @@ const phoneNumberHandler: Handler = {
     
                 this.$session.$data.COMPONENT_GetPhoneNumber.phoneNumberRaw += sequence;
     
-                if (phoneNumberSequenceCount < 2) {
-                    this.$session.$data.COMPONENT_GetPhoneNumber.phoneNumberSequenceCount = phoneNumberSequenceCount + 1;
-    
+                if (phoneNumberSequenceCount === 1) {
                     this.$speech.t('component-GetPhoneNumber.sequence-question');
                     this.$reprompt.t('component-GetPhoneNumber.sequence-reprompt');
+    
+                    return this.ask(this.$speech, this.$reprompt);
+                }
+                else if (phoneNumberSequenceCount === 2) {
+                    this.$speech.t('component-GetPhoneNumber.sequence-last-digits-question');
+                    this.$reprompt.t('component-GetPhoneNumber.sequence-last-digits-reprompt');
     
                     return this.ask(this.$speech, this.$reprompt);
                 }
