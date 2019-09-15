@@ -6,7 +6,11 @@ interface GetPhoneNumberConfig extends ComponentConfig {
 
 const config: GetPhoneNumberConfig = {
     intentMap: {
-        'AMAZON.StopIntent': 'END'
+        'AMAZON.HelpIntent': 'HelpIntent',
+        'AMAZON.NoIntent': 'NoIntent',
+        'AMAZON.StopIntent': 'END',
+        'StopIntent': 'END',
+        'AMAZON.YesIntent': 'YesIntent'
     },
     numberOfFails: 3
 };
