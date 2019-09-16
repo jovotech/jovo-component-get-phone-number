@@ -65,8 +65,54 @@ It's 0123456789 | &nbsp; | &nbsp; | &nbsp;
 No | &nbsp; | &nbsp; | &nbsp; 
 &nbsp; | Alright, let's try again. What is your phone number? | Please tell me your phone number digit by digit. | confirm-reject, reprompt
 It's 0123456789 | &nbsp; | &nbsp;| &nbsp;
-&nbsp; | OK, I got {{phoneNumber}}. Is that correct? | Is your phone number really {{phoneNumber}} | confirm-question, confirm-reprompt
+&nbsp; | OK, I got {{phoneNumber}}. Is that correct? | Is your phone number really {{phoneNumber}} | confirm-question, confirm-reprompt |
 Yes. | &nbsp; | &nbsp; | &nbsp; 
+
+</details>
+
+<details>
+<summary>Sample Dialog #3</summary>
+System understood phone number wrong X times:
+
+User | Alexa Speech | Alexa Reprompt | Keys
+--- | --- | --- | -
+&nbsp; | Alright, let's try again. What is your phone number? | Please tell me your phone number digit by digit. | confirm-reject, reprompt
+It's 0123456789 | &nbsp; | &nbsp;| &nbsp;
+&nbsp; | OK, I got {{phoneNumber}}. Is that correct? | Is your phone number really {{phoneNumber}} | confirm-question, confirm-reprompt |
+No | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | Unfortunately, I have some problems understanding your phone number. Let's slow down, please tell me the first three digits of your number. | &nbsp; | sequence-start
+012 | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | I got {{sequence}}. Is that correct? | &nbsp; | sequence-confirm-question
+Yes | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | Great! Please continue with the next three digits of your phone number. | Please tell me the next three digits of your phone number. | sequence-question, sequence-reprompt
+345 | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | I got {{sequence}}. Is that correct? | &nbsp; | sequence-confirm-question
+Yes | &nbsp; | &nbsp; | &nbsp;
+&nbsp; |Great! Now tell me the last four digits please. | Tell me the last four digits of your phone number please. | sequence-last-digits-question, sequence-last-digits-reprompt
+6789 | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | I got {{sequence}}. Is that correct? | &nbsp; | sequence-confirm-question
+Yes | &nbsp; | &nbsp; | &nbsp;
+
+</details>
+
+<details>
+<summary>Sample Dialog #4</summary>
+System understood phone number wrong X times:
+
+User | Alexa Speech | Alexa Reprompt | Keys
+--- | --- | --- | -
+&nbsp; | Alright, let's try again. What is your phone number? | Please tell me your phone number digit by digit. | confirm-reject, reprompt
+It's 0123456789 | &nbsp; | &nbsp;| &nbsp;
+&nbsp; | OK, I got {{phoneNumber}}. Is that correct? | Is your phone number really {{phoneNumber}} | confirm-question, confirm-reprompt |
+No | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | Unfortunately, I have some problems understanding your phone number. Let's slow down, please tell me the first three digits of your number. | &nbsp; | sequence-start
+012 | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | I got {{sequence}}. Is that correct? | &nbsp; | sequence-confirm-question
+No | &nbsp; | &nbsp; | &nbsp;
+&nbsp; | Oh, sorry! Could you say these digits again? | &nbsp; | sequence-confirm-reject
+
+<---> continue just like in dialog #3 <--->
+
 
 </details>
 
