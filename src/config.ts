@@ -9,7 +9,6 @@ const config: GetPhoneNumberConfig = {
         'AMAZON.HelpIntent': 'HelpIntent',
         'AMAZON.NoIntent': 'NoIntent',
         'AMAZON.StopIntent': 'END',
-        'StopIntent': 'END',
         'AMAZON.YesIntent': 'YesIntent'
     },
     numberOfFails: 3
