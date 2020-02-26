@@ -5,8 +5,7 @@ const phoneNumberUtilInstance = PhoneNumberUtil.getInstance();
 
 const phoneNumberHandler: Handler = {
     START() {
-        
-        if (this.$components[this.getActiveComponent()!.name].data.phoneNumber) {
+        if (this.getActiveComponent()!.data.phoneNumber) {
             return sendComponentResponse(this, 'SUCCESSFUL');
         }
 
@@ -49,7 +48,7 @@ const phoneNumberHandler: Handler = {
 
         const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
 
-        this.$components[this.getActiveComponent()!.name].data.phoneNumber = formattedPhoneNumber;
+        this.getActiveComponent()!.data.phoneNumber = formattedPhoneNumber;
 
         return sendComponentResponse(this, 'SUCCESSFUL');
     },
@@ -57,7 +56,7 @@ const phoneNumberHandler: Handler = {
     NoIntent() {
         this.$session.$data[this.getActiveComponent()!.name].failCount++;
 
-        if (this.$session.$data[this.getActiveComponent()!.name].failCount === this.$components[this.getActiveComponent()!.name].config.numberOfFails) {
+        if (this.$session.$data[this.getActiveComponent()!.name].failCount === this.getActiveComponent()!.config.numberOfFails) {
             return this.toStateIntent('GetPhoneNumber.Sequence', 'START');
         }
 
@@ -147,7 +146,7 @@ const phoneNumberHandler: Handler = {
 
                 const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
 
-                this.$components[this.getActiveComponent()!.name].data.phoneNumber = formattedPhoneNumber;
+                this.getActiveComponent()!.data.phoneNumber = formattedPhoneNumber;
         
                 return sendComponentResponse(this, 'SUCCESSFUL');
             }
@@ -213,7 +212,7 @@ function sendComponentResponse(jovo: Jovo, status: 'SUCCESSFUL' | 'ERROR' | 'REJ
     };
 
     if (status === 'SUCCESSFUL') {
-        response.data = jovo.$components[jovo.getActiveComponent()!.name].data;
+        response.data = jovo.getActiveComponent()!.data;
     } else if (status === 'ERROR') {
         response.error = jovo.$handleRequest!.error;
     }
