@@ -28,14 +28,16 @@ Last but not least you have to include the component in your `app.js`:
 
 import { GetPhoneNumber } from './components/jovo-component-get-phone-number';
 
-app.useComponents(new GetPhoneNumber());
+const GetPhoneNumberComponent = new GetPhoneNumber();
+app.useComponents(GetPhoneNumberComponent);
 
 // @language=javascript
 // src/app.js
 
 const { GetPhoneNumber } = require("../components/jovo-component-get-phone-number/index");
 
-app.useComponents(new GetPhoneNumber());
+const GetPhoneNumberComponent = new GetPhoneNumber();
+app.useComponents(GetPhoneNumberComponent);
 ```
 
 ## Sample Dialog
