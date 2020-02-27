@@ -28,16 +28,14 @@ Last but not least you have to include the component in your `app.js`:
 
 import { GetPhoneNumber } from './components/jovo-component-get-phone-number';
 
-const GetPhoneNumberComponent = new GetPhoneNumber();
-app.useComponents(GetPhoneNumberComponent);
+app.useComponents(new GetPhoneNumber());
 
 // @language=javascript
 // src/app.js
 
 const { GetPhoneNumber } = require("../components/jovo-component-get-phone-number/index");
 
-const GetPhoneNumberComponent = new GetPhoneNumber();
-app.useComponents(GetPhoneNumberComponent);
+app.useComponents(new GetPhoneNumber());
 ```
 
 ## Sample Dialog
@@ -147,7 +145,7 @@ Inside your project's `config.js` override the default value, which is `3`:
 module.exports = {
     // ...
     components: {
-        GetPhoneNumberComponent: {
+        'jovo-component-get-phone-number': {
             numberOfFails: 5
         }
     }
